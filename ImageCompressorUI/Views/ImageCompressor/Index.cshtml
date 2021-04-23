@@ -1,0 +1,35 @@
+﻿@model ImageCompressorUI.Models.FileModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+<div class="mt-5 bg-light">
+    @using (Html.BeginForm("Index", "ImageCompressor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <form class="needs-validation" novalidate>
+            <div class="input-group mb-3">
+                <div class="custom-file">
+                    @Html.TextBoxFor(model => model.Files, "", new { @type = "file", @id = "file", @class = "custom-file-input" })
+                    @Html.ValidationMessageFor(model => model.Files, "", new { @class = "custom-file-label" })
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <label for="customRange3">Quality</label>
+                <input type="range" id="myRange" class="custom-range" min="0" max="100" step="5" onformchange="change();" required>
+                @Html.TextBoxFor(model => model.CompressSize, "", new { @type = "text", @id = "compressSize", @class = "form-control", @readonly = "true" })
+            </div>
+            <div class="input-group mb-3">
+                <button class="col btn btn-primary" type="submit">Compress</button>
+            </div>
+            <span class="alert-info">@ViewBag.UploadStatus</span>
+        </form>
+    }
+</div>
+<script>
+    document.querySelector('.custom-file-input').addEventListener('change', function (e) {
+        var fileName = document.getElementById("file").files[0].name;
+        var nextSibling = e.target.nextElementSibling
+        nextSibling.innerText = fileName
+    })
+</script>

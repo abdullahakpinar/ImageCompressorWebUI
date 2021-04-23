@@ -1,0 +1,28 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <div class="container mb-5">
+        <nav class="navbar navbar-expand-lg navbar-light bg-info sticky-top">
+            <span class="navbar-brand">Image Compressor</span>
+        </nav>
+        @RenderBody()
+    </div>
+    <footer class="modal-footer"></footer>
+    <script>
+        var slider = document.getElementById("myRange");
+        var compSize = document.getElementById("compressSize");
+        compSize.value = slider.value;
+        slider.oninput = function () {
+            compSize.value = this.value;
+        }
+    </script>
+    @Scripts.Render("~/Content/js")
+</body>
+</html>
